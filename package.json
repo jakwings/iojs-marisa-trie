@@ -1,0 +1,52 @@
+{
+  "name": "marisa-trie",
+  "version": "1.0.0",
+  "description": "A wrapper of MARISA library.",
+  "author": "Jak Wings <jakwings@gmail.com>",
+  "license": "ISC",
+  "os": [ "darwin", "linux", "win32" ],
+  "engines": {
+    "node": ">=0.8.0"
+  },
+  "main": "index.js",
+  "scripts": {
+    "rebuild": "node-gyp rebuild",
+    "build": "node-gyp build",
+    "clean": "node-gyp clean",
+    "benchmark": "node benchmark/index.js",
+    "test": "node_modules/.bin/mocha --reporter spec --bail"
+  },
+  "files": [
+    "LICENSE",
+    "README.md",
+    "binding.gyp",
+    "index.js",
+    "src"
+  ],
+  "keywords": [
+    "dictionary",
+    "libmarisa",
+    "marisa-trie",
+    "trie",
+    "bindings",
+    "wrapper",
+    "iojs"
+  ],
+  "dependencies": {
+    "nan": "~2.1.0"
+  },
+  "devDependencies": {
+    "cli-table": "~0.3.1",
+    "mocha": "~2.3.3",
+    "should": "~7.1.1",
+    "temp-fs": "~0.9.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:jakwings/iojs-marisa-trie.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jakwings/iojs-marisa-trie/issues"
+  },
+  "homepage": "https://github.com/jakwings/iojs-marisa-trie"
+}

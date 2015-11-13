@@ -27,7 +27,7 @@ NAN_METHOD(KeyWrap::New) {
     KeyWrap* wrap = NULL;
     if (info[0]->IsUndefined() || info[0]->IsNull()) {
       self = new KeyWrap();
-    } else if (NULL != (wrap = Nan::Unwrap<KeyWrap>(Nan::New(constructor), info[0]))) {
+    } else if (NULL != (wrap = NAN_UNWRAP2(KeyWrap, info[0]))) {
       self = new KeyWrap(wrap->key_);
     } else {
       Nan::ThrowTypeError("Argument#1 must be a key if provided.");
@@ -84,7 +84,7 @@ NAN_METHOD(KeyWrap::Clear) {
 
 NAN_METHOD(KeyWrap::Swap) {
   KeyWrap* self = NAN_UNWRAP(KeyWrap, info.This());
-  KeyWrap* wrap = Nan::Unwrap<KeyWrap>(Nan::New(constructor), info[0]);
+  KeyWrap* wrap = NAN_UNWRAP2(KeyWrap, info[0]);
   if (NULL != wrap) {
     self->key_.swap(wrap->key_);
     info.GetReturnValue().SetUndefined();

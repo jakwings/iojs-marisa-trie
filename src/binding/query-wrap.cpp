@@ -26,7 +26,7 @@ NAN_METHOD(QueryWrap::New) {
     QueryWrap* wrap = NULL;
     if (info[0]->IsUndefined() || info[0]->IsNull()) {
       self = new QueryWrap();
-    } else if (NULL != (wrap = Nan::Unwrap<QueryWrap>(Nan::New(constructor), info[0]))) {
+    } else if (NULL != (wrap = NAN_UNWRAP2(QueryWrap, info[0]))) {
       self = new QueryWrap(wrap->query_);
     } else {
       Nan::ThrowTypeError("Argument#1 must be a query if provided.");
@@ -78,7 +78,7 @@ NAN_METHOD(QueryWrap::Clear) {
 
 NAN_METHOD(QueryWrap::Swap) {
   QueryWrap* self = NAN_UNWRAP(QueryWrap, info.This());
-  QueryWrap* wrap = Nan::Unwrap<QueryWrap>(Nan::New(constructor), info[0]);
+  QueryWrap* wrap = NAN_UNWRAP2(QueryWrap, info[0]);
   if (NULL != wrap) {
     self->query_.swap(wrap->query_);
     info.GetReturnValue().SetUndefined();

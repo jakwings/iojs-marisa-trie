@@ -83,7 +83,7 @@ NAN_METHOD(KeysetWrap::PushBack) {
     }
     info.GetReturnValue().SetUndefined();
   } else if (info[0]->IsObject()) {
-    KeyWrap* key = Nan::Unwrap<KeyWrap>(Nan::New(KeyWrap::constructor), info[0]);
+    KeyWrap* key = NAN_UNWRAP2(KeyWrap, info[0]);
     if (NULL != key) {
       self->keyset_.push_back(key->key());
       info.GetReturnValue().SetUndefined();
@@ -129,7 +129,7 @@ NAN_METHOD(KeysetWrap::Clear) {
 
 NAN_METHOD(KeysetWrap::Swap) {
   KeysetWrap* self = NAN_UNWRAP(KeysetWrap, info.This());
-  KeysetWrap* wrap = Nan::Unwrap<KeysetWrap>(Nan::New(constructor), info[0]);
+  KeysetWrap* wrap = NAN_UNWRAP2(KeysetWrap, info[0]);
   if (NULL != wrap) {
     self->keyset_.swap(wrap->keyset_);
     info.GetReturnValue().SetUndefined();

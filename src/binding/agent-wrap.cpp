@@ -108,7 +108,7 @@ NAN_METHOD(AgentWrap::Swap) {
   AgentWrap* self = NAN_UNWRAP(AgentWrap, info.This());
   if (NULL != self) {
     AgentWrap* wrap = NULL;
-    if (NULL != (wrap = Nan::Unwrap<AgentWrap>(Nan::New(constructor), info[0]))) {
+    if (NULL != (wrap = NAN_UNWRAP2(AgentWrap, info[0]))) {
       self->agent_.swap(wrap->agent_);
       info.GetReturnValue().SetUndefined();
     } else {

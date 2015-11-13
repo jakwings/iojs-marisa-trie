@@ -50,7 +50,7 @@ NAN_METHOD(TrieWrap::New) {
 
 NAN_METHOD(TrieWrap::Build) {
   TrieWrap* self = NAN_UNWRAP(TrieWrap, info.This());
-  KeysetWrap* wrap = Nan::Unwrap<KeysetWrap>(Nan::New(KeysetWrap::constructor), info[0]);
+  KeysetWrap* wrap = NAN_UNWRAP2(KeysetWrap, info[0]);
   if (NULL != wrap) {
     int64_t flag = 0;
     if (info[1]->IsNumber()) {
@@ -175,7 +175,7 @@ NAN_METHOD(TrieWrap::Write) {
 
 NAN_METHOD(TrieWrap::Lookup) {
   TrieWrap* self = NAN_UNWRAP(TrieWrap, info.This());
-  AgentWrap* wrap = Nan::Unwrap<AgentWrap>(Nan::New(AgentWrap::constructor), info[0]);
+  AgentWrap* wrap = NAN_UNWRAP2(AgentWrap, info[0]);
   if (NULL != wrap) {
     if (self->CheckState()) {
       info.GetReturnValue().Set(self->trie_.lookup(wrap->agent()));
@@ -189,7 +189,7 @@ NAN_METHOD(TrieWrap::Lookup) {
 
 NAN_METHOD(TrieWrap::ReverseLookup) {
   TrieWrap* self = NAN_UNWRAP(TrieWrap, info.This());
-  AgentWrap* wrap = Nan::Unwrap<AgentWrap>(Nan::New(AgentWrap::constructor), info[0]);
+  AgentWrap* wrap = NAN_UNWRAP2(AgentWrap, info[0]);
   if (NULL != wrap) {
     if (self->CheckState()) {
       if (wrap->agent().query().id() < self->trie_.size()) {
@@ -208,7 +208,7 @@ NAN_METHOD(TrieWrap::ReverseLookup) {
 
 NAN_METHOD(TrieWrap::CommonPrefixSearch) {
   TrieWrap* self = NAN_UNWRAP(TrieWrap, info.This());
-  AgentWrap* wrap = Nan::Unwrap<AgentWrap>(Nan::New(AgentWrap::constructor), info[0]);
+  AgentWrap* wrap = NAN_UNWRAP2(AgentWrap, info[0]);
   if (NULL != wrap) {
     if (self->CheckState()) {
       info.GetReturnValue().Set(self->trie_.common_prefix_search(wrap->agent()));
@@ -222,7 +222,7 @@ NAN_METHOD(TrieWrap::CommonPrefixSearch) {
 
 NAN_METHOD(TrieWrap::PredictiveSearch) {
   TrieWrap* self = NAN_UNWRAP(TrieWrap, info.This());
-  AgentWrap* wrap = Nan::Unwrap<AgentWrap>(Nan::New(AgentWrap::constructor), info[0]);
+  AgentWrap* wrap = NAN_UNWRAP2(AgentWrap, info[0]);
   if (NULL != wrap) {
     if (self->CheckState()) {
       info.GetReturnValue().Set(self->trie_.predictive_search(wrap->agent()));
@@ -314,7 +314,7 @@ NAN_METHOD(TrieWrap::Clear) {
 
 NAN_METHOD(TrieWrap::Swap) {
   TrieWrap* self = NAN_UNWRAP(TrieWrap, info.This());
-  TrieWrap* wrap = Nan::Unwrap<TrieWrap>(Nan::New(constructor), info[0]);
+  TrieWrap* wrap = NAN_UNWRAP2(TrieWrap, info[0]);
   if (NULL != wrap) {
     self->trie_.swap(wrap->trie_);
     info.GetReturnValue().SetUndefined();

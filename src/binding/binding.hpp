@@ -7,22 +7,14 @@
 #include <marisa/trie.h>
 #include <nan.h>
 
-#define NAN_UNWRAP(T, val) \
-  Nan::ObjectWrap::Unwrap<T>(Nan::To<v8::Object>(val).ToLocalChecked())
-
-namespace Nan {
-
-template<typename T>
-T* Unwrap(v8::Local<v8::FunctionTemplate> tpl, v8::Local<v8::Value> val) {
-  Nan::HandleScope scope;
-  if (tpl->HasInstance(val)) {
-    v8::Local<v8::Object> object = Nan::To<v8::Object>(val).ToLocalChecked();
-    return Nan::ObjectWrap::Unwrap<T>(object);
-  }
-  return NULL;
-}
-
-}  // namespace Nan
+/*
+ * value: v8::Local<v8::Value>
+ * constructor: Nan::Persistent<v8::FunctionTemplate>
+ */
+#define NAN_UNWRAP(T, value) \
+  Nan::ObjectWrap::Unwrap<T>(Nan::To<v8::Object>(value).ToLocalChecked())
+#define NAN_UNWRAP2(T, value) \
+  (Nan::New(T::constructor)->HasInstance(value) ? NAN_UNWRAP(T, value) : NULL)
 
 
 #endif  // BINDING_HPP

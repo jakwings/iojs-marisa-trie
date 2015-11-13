@@ -36,7 +36,7 @@ NAN_METHOD(KeysetWrap::New) {
 }
 
 NAN_INDEX_GETTER(KeysetWrap::GetKey) {
-  KeysetWrap* self = NAN_UNWRAP(KeysetWrap, info.Holder());
+  KeysetWrap* self = NAN_UNWRAP(KeysetWrap, info.This());
   if (index < self->keyset_.size()) {
     v8::Local<v8::Function> cons = Nan::GetFunction(Nan::New(KeyWrap::constructor)).ToLocalChecked();
     v8::Local<v8::Object> instance = Nan::NewInstance(cons).ToLocalChecked();
@@ -52,7 +52,7 @@ NAN_INDEX_GETTER(KeysetWrap::GetKey) {
 }
 
 NAN_METHOD(KeysetWrap::PushBack) {
-  KeysetWrap* self = NAN_UNWRAP(KeysetWrap, info.Holder());
+  KeysetWrap* self = NAN_UNWRAP(KeysetWrap, info.This());
   if (self->keyset_.size() == MARISA_SIZE_MAX ||
       self->keyset_.size() == 9007199254740990LL) {  // Number.MAX_SAFE_INTEGER - 1
     Nan::ThrowRangeError("Maximum size of keyset exceeded.");
@@ -96,39 +96,39 @@ NAN_METHOD(KeysetWrap::PushBack) {
 }
 
 NAN_METHOD(KeysetWrap::NumKeys) {
-  KeysetWrap* self = NAN_UNWRAP(KeysetWrap, info.Holder());
+  KeysetWrap* self = NAN_UNWRAP(KeysetWrap, info.This());
   info.GetReturnValue().Set(static_cast<double>(self->keyset_.num_keys()));
 }
 
 NAN_METHOD(KeysetWrap::Empty) {
-  KeysetWrap* self = NAN_UNWRAP(KeysetWrap, info.Holder());
+  KeysetWrap* self = NAN_UNWRAP(KeysetWrap, info.This());
   info.GetReturnValue().Set(self->keyset_.empty());
 }
 
 NAN_METHOD(KeysetWrap::Size) {
-  KeysetWrap* self = NAN_UNWRAP(KeysetWrap, info.Holder());
+  KeysetWrap* self = NAN_UNWRAP(KeysetWrap, info.This());
   info.GetReturnValue().Set(static_cast<double>(self->keyset_.size()));
 }
 
 NAN_METHOD(KeysetWrap::TotalLength) {
-  KeysetWrap* self = NAN_UNWRAP(KeysetWrap, info.Holder());
+  KeysetWrap* self = NAN_UNWRAP(KeysetWrap, info.This());
   info.GetReturnValue().Set(static_cast<double>(self->keyset_.total_length()));
 }
 
 NAN_METHOD(KeysetWrap::Reset) {
-  KeysetWrap* self = NAN_UNWRAP(KeysetWrap, info.Holder());
+  KeysetWrap* self = NAN_UNWRAP(KeysetWrap, info.This());
   self->keyset_.reset();
   info.GetReturnValue().SetUndefined();
 }
 
 NAN_METHOD(KeysetWrap::Clear) {
-  KeysetWrap* self = NAN_UNWRAP(KeysetWrap, info.Holder());
+  KeysetWrap* self = NAN_UNWRAP(KeysetWrap, info.This());
   self->keyset_.clear();
   info.GetReturnValue().SetUndefined();
 }
 
 NAN_METHOD(KeysetWrap::Swap) {
-  KeysetWrap* self = NAN_UNWRAP(KeysetWrap, info.Holder());
+  KeysetWrap* self = NAN_UNWRAP(KeysetWrap, info.This());
   KeysetWrap* wrap = Nan::Unwrap<KeysetWrap>(Nan::New(constructor), info[0]);
   if (NULL != wrap) {
     self->keyset_.swap(wrap->keyset_);

@@ -49,7 +49,7 @@ NAN_METHOD(TrieWrap::New) {
 }
 
 NAN_METHOD(TrieWrap::Build) {
-  TrieWrap* self = NAN_UNWRAP(TrieWrap, info.Holder());
+  TrieWrap* self = NAN_UNWRAP(TrieWrap, info.This());
   KeysetWrap* wrap = Nan::Unwrap<KeysetWrap>(Nan::New(KeysetWrap::constructor), info[0]);
   if (NULL != wrap) {
     int64_t flag = 0;
@@ -66,7 +66,7 @@ NAN_METHOD(TrieWrap::Build) {
 }
 
 NAN_METHOD(TrieWrap::Mmap) {
-  TrieWrap* self = NAN_UNWRAP(TrieWrap, info.Holder());
+  TrieWrap* self = NAN_UNWRAP(TrieWrap, info.This());
   if (info[0]->IsString()) {
     Nan::Utf8String filepath(info[0]);
     try {
@@ -81,7 +81,7 @@ NAN_METHOD(TrieWrap::Mmap) {
 }
 
 NAN_METHOD(TrieWrap::Map) {
-  TrieWrap* self = NAN_UNWRAP(TrieWrap, info.Holder());
+  TrieWrap* self = NAN_UNWRAP(TrieWrap, info.This());
   if (info[0]->IsObject() && node::Buffer::HasInstance(info[0])) {
     v8::Local<v8::Object> obj = Nan::To<v8::Object>(info[0]).ToLocalChecked();
     char* buffer = node::Buffer::Data(obj);
@@ -106,7 +106,7 @@ NAN_METHOD(TrieWrap::Map) {
 }
 
 NAN_METHOD(TrieWrap::Load) {
-  TrieWrap* self = NAN_UNWRAP(TrieWrap, info.Holder());
+  TrieWrap* self = NAN_UNWRAP(TrieWrap, info.This());
   if (info[0]->IsString()) {
     Nan::Utf8String filepath(info[0]);
     try {
@@ -121,7 +121,7 @@ NAN_METHOD(TrieWrap::Load) {
 }
 
 NAN_METHOD(TrieWrap::Read) {
-  TrieWrap* self = NAN_UNWRAP(TrieWrap, info.Holder());
+  TrieWrap* self = NAN_UNWRAP(TrieWrap, info.This());
   if (info[0]->IsNumber()) {
     int64_t fd = Nan::To<int64_t>(info[0]).FromJust();
     try {
@@ -136,7 +136,7 @@ NAN_METHOD(TrieWrap::Read) {
 }
 
 NAN_METHOD(TrieWrap::Save) {
-  TrieWrap* self = NAN_UNWRAP(TrieWrap, info.Holder());
+  TrieWrap* self = NAN_UNWRAP(TrieWrap, info.This());
   if (info[0]->IsString()) {
     if (self->CheckState()) {
       Nan::Utf8String filepath(info[0]);
@@ -155,7 +155,7 @@ NAN_METHOD(TrieWrap::Save) {
 }
 
 NAN_METHOD(TrieWrap::Write) {
-  TrieWrap* self = NAN_UNWRAP(TrieWrap, info.Holder());
+  TrieWrap* self = NAN_UNWRAP(TrieWrap, info.This());
   if (info[0]->IsNumber()) {
     if (self->CheckState()) {
       int64_t fd = Nan::To<int64_t>(info[0]).FromJust();
@@ -174,7 +174,7 @@ NAN_METHOD(TrieWrap::Write) {
 }
 
 NAN_METHOD(TrieWrap::Lookup) {
-  TrieWrap* self = NAN_UNWRAP(TrieWrap, info.Holder());
+  TrieWrap* self = NAN_UNWRAP(TrieWrap, info.This());
   AgentWrap* wrap = Nan::Unwrap<AgentWrap>(Nan::New(AgentWrap::constructor), info[0]);
   if (NULL != wrap) {
     if (self->CheckState()) {
@@ -188,7 +188,7 @@ NAN_METHOD(TrieWrap::Lookup) {
 }
 
 NAN_METHOD(TrieWrap::ReverseLookup) {
-  TrieWrap* self = NAN_UNWRAP(TrieWrap, info.Holder());
+  TrieWrap* self = NAN_UNWRAP(TrieWrap, info.This());
   AgentWrap* wrap = Nan::Unwrap<AgentWrap>(Nan::New(AgentWrap::constructor), info[0]);
   if (NULL != wrap) {
     if (self->CheckState()) {
@@ -207,7 +207,7 @@ NAN_METHOD(TrieWrap::ReverseLookup) {
 }
 
 NAN_METHOD(TrieWrap::CommonPrefixSearch) {
-  TrieWrap* self = NAN_UNWRAP(TrieWrap, info.Holder());
+  TrieWrap* self = NAN_UNWRAP(TrieWrap, info.This());
   AgentWrap* wrap = Nan::Unwrap<AgentWrap>(Nan::New(AgentWrap::constructor), info[0]);
   if (NULL != wrap) {
     if (self->CheckState()) {
@@ -221,7 +221,7 @@ NAN_METHOD(TrieWrap::CommonPrefixSearch) {
 }
 
 NAN_METHOD(TrieWrap::PredictiveSearch) {
-  TrieWrap* self = NAN_UNWRAP(TrieWrap, info.Holder());
+  TrieWrap* self = NAN_UNWRAP(TrieWrap, info.This());
   AgentWrap* wrap = Nan::Unwrap<AgentWrap>(Nan::New(AgentWrap::constructor), info[0]);
   if (NULL != wrap) {
     if (self->CheckState()) {
@@ -235,7 +235,7 @@ NAN_METHOD(TrieWrap::PredictiveSearch) {
 }
 
 NAN_METHOD(TrieWrap::NumTries) {
-  TrieWrap* self = NAN_UNWRAP(TrieWrap, info.Holder());
+  TrieWrap* self = NAN_UNWRAP(TrieWrap, info.This());
   if (self->CheckState()) {
     info.GetReturnValue().Set(static_cast<double>(self->trie_.num_tries()));
   } else {
@@ -244,7 +244,7 @@ NAN_METHOD(TrieWrap::NumTries) {
 }
 
 NAN_METHOD(TrieWrap::NumKeys) {
-  TrieWrap* self = NAN_UNWRAP(TrieWrap, info.Holder());
+  TrieWrap* self = NAN_UNWRAP(TrieWrap, info.This());
   if (self->CheckState()) {
     info.GetReturnValue().Set(static_cast<double>(self->trie_.num_keys()));
   } else {
@@ -253,7 +253,7 @@ NAN_METHOD(TrieWrap::NumKeys) {
 }
 
 NAN_METHOD(TrieWrap::NumNodes) {
-  TrieWrap* self = NAN_UNWRAP(TrieWrap, info.Holder());
+  TrieWrap* self = NAN_UNWRAP(TrieWrap, info.This());
   if (self->CheckState()) {
     info.GetReturnValue().Set(static_cast<double>(self->trie_.num_nodes()));
   } else {
@@ -262,7 +262,7 @@ NAN_METHOD(TrieWrap::NumNodes) {
 }
 
 NAN_METHOD(TrieWrap::TailMode) {
-  TrieWrap* self = NAN_UNWRAP(TrieWrap, info.Holder());
+  TrieWrap* self = NAN_UNWRAP(TrieWrap, info.This());
   if (self->CheckState()) {
     info.GetReturnValue().Set(self->trie_.tail_mode());
   } else {
@@ -271,7 +271,7 @@ NAN_METHOD(TrieWrap::TailMode) {
 }
 
 NAN_METHOD(TrieWrap::NodeOrder) {
-  TrieWrap* self = NAN_UNWRAP(TrieWrap, info.Holder());
+  TrieWrap* self = NAN_UNWRAP(TrieWrap, info.This());
   if (self->CheckState()) {
     info.GetReturnValue().Set(self->trie_.node_order());
   } else {
@@ -280,7 +280,7 @@ NAN_METHOD(TrieWrap::NodeOrder) {
 }
 
 NAN_METHOD(TrieWrap::Empty) {
-  TrieWrap* self = NAN_UNWRAP(TrieWrap, info.Holder());
+  TrieWrap* self = NAN_UNWRAP(TrieWrap, info.This());
   if (self->CheckState()) {
     info.GetReturnValue().Set(self->trie_.empty());
   } else {
@@ -289,7 +289,7 @@ NAN_METHOD(TrieWrap::Empty) {
 }
 
 NAN_METHOD(TrieWrap::Size) {
-  TrieWrap* self = NAN_UNWRAP(TrieWrap, info.Holder());
+  TrieWrap* self = NAN_UNWRAP(TrieWrap, info.This());
   if (self->CheckState()) {
     info.GetReturnValue().Set(static_cast<double>(self->trie_.size()));
   } else {
@@ -298,7 +298,7 @@ NAN_METHOD(TrieWrap::Size) {
 }
 
 NAN_METHOD(TrieWrap::IoSize) {
-  TrieWrap* self = NAN_UNWRAP(TrieWrap, info.Holder());
+  TrieWrap* self = NAN_UNWRAP(TrieWrap, info.This());
   if (self->CheckState()) {
     info.GetReturnValue().Set(static_cast<double>(self->trie_.io_size()));
   } else {
@@ -307,13 +307,13 @@ NAN_METHOD(TrieWrap::IoSize) {
 }
 
 NAN_METHOD(TrieWrap::Clear) {
-  TrieWrap* self = NAN_UNWRAP(TrieWrap, info.Holder());
+  TrieWrap* self = NAN_UNWRAP(TrieWrap, info.This());
   self->trie_.clear();
   info.GetReturnValue().SetUndefined();
 }
 
 NAN_METHOD(TrieWrap::Swap) {
-  TrieWrap* self = NAN_UNWRAP(TrieWrap, info.Holder());
+  TrieWrap* self = NAN_UNWRAP(TrieWrap, info.This());
   TrieWrap* wrap = Nan::Unwrap<TrieWrap>(Nan::New(constructor), info[0]);
   if (NULL != wrap) {
     self->trie_.swap(wrap->trie_);

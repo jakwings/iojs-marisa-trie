@@ -44,7 +44,7 @@ NAN_METHOD(KeyWrap::New) {
 }
 
 NAN_INDEX_GETTER(KeyWrap::GetChar) {
-  KeyWrap* self = NAN_UNWRAP(KeyWrap, info.Holder());
+  KeyWrap* self = NAN_UNWRAP(KeyWrap, info.This());
   if (index < self->key_.length()) {
     info.GetReturnValue().Set(static_cast<unsigned char>(self->key_[index]));
   } else {
@@ -53,7 +53,7 @@ NAN_INDEX_GETTER(KeyWrap::GetChar) {
 }
 
 NAN_METHOD(KeyWrap::Ptr) {
-  KeyWrap* self = NAN_UNWRAP(KeyWrap, info.Holder());
+  KeyWrap* self = NAN_UNWRAP(KeyWrap, info.This());
   if (self->key_.length() > 0) {
     info.GetReturnValue().Set(Nan::New(self->key_.ptr(), self->key_.length()).ToLocalChecked());
   } else {
@@ -62,28 +62,28 @@ NAN_METHOD(KeyWrap::Ptr) {
 }
 
 NAN_METHOD(KeyWrap::Length) {
-  KeyWrap* self = NAN_UNWRAP(KeyWrap, info.Holder());
+  KeyWrap* self = NAN_UNWRAP(KeyWrap, info.This());
   info.GetReturnValue().Set(static_cast<double>(self->key_.length()));
 }
 
 NAN_METHOD(KeyWrap::Id) {
-  KeyWrap* self = NAN_UNWRAP(KeyWrap, info.Holder());
+  KeyWrap* self = NAN_UNWRAP(KeyWrap, info.This());
   info.GetReturnValue().Set(static_cast<double>(self->key_.id()));
 }
 
 NAN_METHOD(KeyWrap::Weight) {
-  KeyWrap* self = NAN_UNWRAP(KeyWrap, info.Holder());
+  KeyWrap* self = NAN_UNWRAP(KeyWrap, info.This());
   info.GetReturnValue().Set(static_cast<double>(self->key_.weight()));
 }
 
 NAN_METHOD(KeyWrap::Clear) {
-  KeyWrap* self = NAN_UNWRAP(KeyWrap, info.Holder());
+  KeyWrap* self = NAN_UNWRAP(KeyWrap, info.This());
   self->key_.clear();
   info.GetReturnValue().SetUndefined();
 }
 
 NAN_METHOD(KeyWrap::Swap) {
-  KeyWrap* self = NAN_UNWRAP(KeyWrap, info.Holder());
+  KeyWrap* self = NAN_UNWRAP(KeyWrap, info.This());
   KeyWrap* wrap = Nan::Unwrap<KeyWrap>(Nan::New(constructor), info[0]);
   if (NULL != wrap) {
     self->key_.swap(wrap->key_);

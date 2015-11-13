@@ -33,7 +33,7 @@ NAN_METHOD(AgentWrap::New) {
 }
 
 NAN_METHOD(AgentWrap::Query) {
-  AgentWrap* self = Nan::Unwrap<AgentWrap>(Nan::New(constructor), info.Holder());
+  AgentWrap* self = Nan::Unwrap<AgentWrap>(Nan::New(constructor), info.This());
   if (NULL != self) {
     v8::Local<v8::Function> cons = Nan::GetFunction(Nan::New(QueryWrap::constructor)).ToLocalChecked();
     v8::Local<v8::Object> instance = Nan::NewInstance(cons).ToLocalChecked();
@@ -47,7 +47,7 @@ NAN_METHOD(AgentWrap::Query) {
 }
 
 NAN_METHOD(AgentWrap::Key) {
-  AgentWrap* self = Nan::Unwrap<AgentWrap>(Nan::New(constructor), info.Holder());
+  AgentWrap* self = Nan::Unwrap<AgentWrap>(Nan::New(constructor), info.This());
   if (NULL != self) {
     v8::Local<v8::Function> cons = Nan::GetFunction(Nan::New(KeyWrap::constructor)).ToLocalChecked();
     v8::Local<v8::Object> instance = Nan::NewInstance(cons).ToLocalChecked();
@@ -62,7 +62,7 @@ NAN_METHOD(AgentWrap::Key) {
 }
 
 NAN_METHOD(AgentWrap::SetQuery) {
-  AgentWrap* self = Nan::Unwrap<AgentWrap>(Nan::New(constructor), info.Holder());
+  AgentWrap* self = Nan::Unwrap<AgentWrap>(Nan::New(constructor), info.This());
   if (NULL != self) {
     if (info[0]->IsString()) {
       Nan::Utf8String utf8_key(info[0]);
@@ -95,7 +95,7 @@ NAN_METHOD(AgentWrap::SetQuery) {
 }
 
 NAN_METHOD(AgentWrap::Clear) {
-  AgentWrap* self = Nan::Unwrap<AgentWrap>(Nan::New(constructor), info.Holder());
+  AgentWrap* self = Nan::Unwrap<AgentWrap>(Nan::New(constructor), info.This());
   if (NULL != self) {
     self->agent_.clear();
     info.GetReturnValue().SetUndefined();
@@ -105,7 +105,7 @@ NAN_METHOD(AgentWrap::Clear) {
 }
 
 NAN_METHOD(AgentWrap::Swap) {
-  AgentWrap* self = Nan::Unwrap<AgentWrap>(Nan::New(constructor), info.Holder());
+  AgentWrap* self = Nan::Unwrap<AgentWrap>(Nan::New(constructor), info.This());
   if (NULL != self) {
     AgentWrap* wrap = NULL;
     if (NULL != (wrap = Nan::Unwrap<AgentWrap>(Nan::New(constructor), info[0]))) {

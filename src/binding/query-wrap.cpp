@@ -43,7 +43,7 @@ NAN_METHOD(QueryWrap::New) {
 }
 
 NAN_INDEX_GETTER(QueryWrap::GetChar) {
-  QueryWrap* self = NAN_UNWRAP(QueryWrap, info.Holder());
+  QueryWrap* self = NAN_UNWRAP(QueryWrap, info.This());
   if (index < self->query_.length()) {
     info.GetReturnValue().Set(static_cast<unsigned char>(self->query_[index]));
   } else {
@@ -52,7 +52,7 @@ NAN_INDEX_GETTER(QueryWrap::GetChar) {
 }
 
 NAN_METHOD(QueryWrap::Ptr) {
-  QueryWrap* self = NAN_UNWRAP(QueryWrap, info.Holder());
+  QueryWrap* self = NAN_UNWRAP(QueryWrap, info.This());
   if (self->query_.length() > 0) {
     info.GetReturnValue().Set(Nan::New(self->query_.ptr(), self->query_.length()).ToLocalChecked());;
   } else {
@@ -61,23 +61,23 @@ NAN_METHOD(QueryWrap::Ptr) {
 }
 
 NAN_METHOD(QueryWrap::Length) {
-  QueryWrap* self = NAN_UNWRAP(QueryWrap, info.Holder());
+  QueryWrap* self = NAN_UNWRAP(QueryWrap, info.This());
   info.GetReturnValue().Set(static_cast<double>(self->query_.length()));
 }
 
 NAN_METHOD(QueryWrap::Id) {
-  QueryWrap* self = NAN_UNWRAP(QueryWrap, info.Holder());
+  QueryWrap* self = NAN_UNWRAP(QueryWrap, info.This());
   info.GetReturnValue().Set(static_cast<double>(self->query_.id()));
 }
 
 NAN_METHOD(QueryWrap::Clear) {
-  QueryWrap* self = NAN_UNWRAP(QueryWrap, info.Holder());
+  QueryWrap* self = NAN_UNWRAP(QueryWrap, info.This());
   self->query_.clear();
   info.GetReturnValue().SetUndefined();
 }
 
 NAN_METHOD(QueryWrap::Swap) {
-  QueryWrap* self = NAN_UNWRAP(QueryWrap, info.Holder());
+  QueryWrap* self = NAN_UNWRAP(QueryWrap, info.This());
   QueryWrap* wrap = Nan::Unwrap<QueryWrap>(Nan::New(constructor), info[0]);
   if (NULL != wrap) {
     self->query_.swap(wrap->query_);
